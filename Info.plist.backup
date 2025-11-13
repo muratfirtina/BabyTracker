@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Baby Tracker size en yakın çocuk doktorları ve nöbetçi eczaneleri gösterebilmek için konum bilginize ihtiyaç duyar. Bu bilgi sadece yakın hizmetleri bulmak için kullanılır ve hiçbir şekilde saklanmaz.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Baby Tracker size en yakın çocuk doktorları ve nöbetçi eczaneleri gösterebilmek için konum bilginize ihtiyaç duyar. Bu bilgi sadece yakın hizmetleri bulmak için kullanılır ve hiçbir şekilde saklanmaz.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>maps</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>maps</string>
+				<string>googlemaps</string>
+				<string>yandexmaps</string>
+				<string>yandexnavi</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>maps</string>
+		<string>googlemaps</string>
+		<string>yandexmaps</string>
+		<string>yandexnavi</string>
+		<string>tel</string>
+	</array>
+</dict>
+</plist>

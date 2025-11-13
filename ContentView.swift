@@ -68,8 +68,8 @@ struct ContentView: View {
                 NearbyServicesView()
                     .tabItem {
                         TabItemView(
-                            icon: "location.fill",
-                            title: "Yakın Hizmetler",
+                            icon: "cross.circle.fill",
+                            title: "Yakındaki",
                             isSelected: selectedTab == 4
                         )
                     }
@@ -128,7 +128,7 @@ struct ContentView: View {
             )
         case 4: // Nearby Services
             return LinearGradient(
-                colors: [Color.softMint.opacity(0.4), Color.white],
+                colors: [Color.babySecondary.opacity(0.3), Color.white],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -180,8 +180,8 @@ struct TabItemView: View {
             return .roseGold
         case "Aktiviteler":
             return .coralPink
-        case "Yakın Hizmetler":
-            return .mintGreen
+        case "Yakındaki":
+            return .infoBlue
         case "Uyku":
             return .lilacPurple
         default:
