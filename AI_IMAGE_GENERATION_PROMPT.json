@@ -1,0 +1,96 @@
+{
+  "style": "modern iOS app icon, soft and friendly aesthetic, pastel colors with gentle gradients, rounded shapes, professional healthcare vibe, clean minimal design, optimized for App Store",
+  "scene": "a {main_object} representing baby care and health tracking, centered on a soft {surface_color} background with subtle depth and warm atmosphere",
+  "composition": {
+    "layout": "center-focused clean composition with breathing room",
+    "camera_angle": "straight-on with slight depth perspective",
+    "depth_of_field": "soft, focused on main object with gentle blur",
+    "motion_feel": "calm and stable, gentle curves for warmth",
+    "aspect_ratio": "1:1",
+    "icon_ready": "suitable for iOS app icon with proper padding"
+  },
+  "elements": {
+    "main_object": "{main_object}",
+    "secondary_object": "{optional_secondary_object}",
+    "object_style": "soft realistic, gentle curves, minimalist, pediatric healthcare themed",
+    "surface_detail": "smooth gradients, subtle shadows, professional medical feel",
+    "shadow_type": "soft ambient shadow, not too heavy",
+    "lighting": "natural daylight feel with warm ambient glow"
+  },
+  "colors": {
+    "primary_color": "{primary_color}",
+    "secondary_color": "{secondary_color}",
+    "accent_color": "{accent_color}",
+    "surface_color": "{surface_color}",
+    "color_scheme": "pastel and welcoming, not too bright or saturated"
+  },
+  "theme": {
+    "app_type": "baby health tracker",
+    "vibe": "{caring | professional | friendly | trustworthy | modern}",
+    "target_audience": "parents with babies (0-3 years)"
+  },
+  "formatting": {
+    "background": "soft gradient from {top_color} to {bottom_color}, gentle and calming",
+    "resolution": "1024x1024 (iOS App Icon standard)",
+    "corner_radius": "will be applied by iOS, design with rounded corners in mind",
+    "output": "no text, no logo, no UI elements, pure icon design"
+  },
+  "icon_variations": {
+    "dashboard": {
+      "main_object": "baby footprint or baby bottle with heart",
+      "primary_color": "soft pink or baby blue",
+      "secondary_color": "cream or light yellow",
+      "description": "main app icon for dashboard"
+    },
+    "growth_tracking": {
+      "main_object": "growth chart line going up with baby silhouette",
+      "primary_color": "mint green",
+      "secondary_color": "soft teal",
+      "description": "icon for growth tracking feature"
+    },
+    "vaccination": {
+      "main_object": "medical shield with checkmark or syringe in friendly style",
+      "primary_color": "light blue",
+      "secondary_color": "lavender",
+      "description": "icon for vaccination schedule"
+    },
+    "development": {
+      "main_object": "baby blocks spelling ABC or milestone markers",
+      "primary_color": "soft coral",
+      "secondary_color": "peach",
+      "description": "icon for development milestones"
+    },
+    "nearby_services": {
+      "main_object": "map pin with medical cross or stethoscope",
+      "primary_color": "sky blue",
+      "secondary_color": "light turquoise",
+      "description": "icon for finding nearby pediatric services"
+    },
+    "activities": {
+      "main_object": "pacifier or baby rattle with stars",
+      "primary_color": "soft purple",
+      "secondary_color": "light pink",
+      "description": "icon for baby activities tracking"
+    }
+  },
+  "usage_notes": {
+    "gender_colors": {
+      "boy": "baby blue (#89CFF0), light blue (#B4D7E8), white (#FFFFFF)",
+      "girl": "soft pink (#FFB6D9), lavender (#E6B8E8), cream (#FFF8F0)"
+    },
+    "avoid": [
+      "overly bright or neon colors",
+      "complex details that don't scale well",
+      "dark or heavy shadows",
+      "clinical/sterile medical imagery",
+      "anything scary or intimidating for parents"
+    ],
+    "prefer": [
+      "rounded, friendly shapes",
+      "pastel color palette",
+      "gentle gradients",
+      "professional yet approachable feel",
+      "clear silhouettes that work at small sizes"
+    ]
+  }
+}

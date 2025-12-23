@@ -15,21 +15,30 @@ struct VaccinationView: View {
         vaccinationDataManager.vaccines
     }
     
+    // Gender-based color scheme
+    private var genderColorScheme: GenderColorScheme {
+        GenderColorScheme.forGender(baby.gender)
+    }
+    
     var body: some View {
         NavigationView {
             ZStack {
                 // Beautiful background
-                LinearGradient(
-                    colors: [
-                        Color.lightPeach.opacity(0.3),
-                        Color.white
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+                genderColorScheme.gradient
+                    .ignoresSafeArea()
                 
-                VStack {
+                VStack(spacing: 0) {
+                    // Modern Header
+                    ModernVaccinationHeader(
+                        baby: baby,
+                        vaccines: vaccines,
+                        colorScheme: genderColorScheme
+                    )
+                    .opacity(animateContent ? 1.0 : 0)
+                    .offset(y: animateContent ? 0 : -30)
+                    .animation(.easeOut(duration: 0.8).delay(0.1), value: animateContent)
+                    
+                    // Content
                     if baby.isPregnancy {
                         PregnancyVaccineInfoView()
                             .opacity(animateContent ? 1.0 : 0)
@@ -89,8 +98,8 @@ struct VaccinationView: View {
                     }
                 }
             }
-            .navigationTitle("Aşı Takvimi")
-            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle("")
+            .navigationBarHidden(true)
         }
         .onAppear {
             animateContent = true
@@ -924,6 +933,92 @@ struct VaccinationNotificationBanner: View {
                     }
                 }
             }
+        }
+    }
+}
+
+// Modern Vaccination Header
+struct ModernVaccinationHeader: View {
+    let baby: Baby
+    let vaccines: [Vaccination]
+    let colorScheme: GenderColorScheme
+    
+    @State private var animateIcon = false
+    
+    private var completedCount: Int {
+        vaccines.filter { $0.isCompleted }.count
+    }
+    
+    private var progressPercentage: Double {
+        guard !vaccines.isEmpty else { return 0 }
+        return Double(completedCount) / Double(vaccines.count)
+    }
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            HStack {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("💉 Aşı Takvimi")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 2)
+                    
+                    Text("Sağlık takvimini takip edin")
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.9))
+                }
+                
+                Spacer()
+                
+                // Vaccination icon with animation
+                Image(systemName: "syringe.fill")
+                    .font(.system(size: 40, weight: .medium))
+                    .foregroundColor(.white)
+                    .scaleEffect(animateIcon ? 1.0 : 0.8)
+                    .rotationEffect(.degrees(animateIcon ? 0 : -15))
+                    .animation(.spring(response: 1.0, dampingFraction: 0.6).delay(0.5), value: animateIcon)
+            }
+            
+            // Progress Info
+            HStack {
+                HStack(spacing: 8) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.8))
+                    
+                    Text("\(completedCount)/\(vaccines.count) tamamlandı")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.white.opacity(0.9))
+                }
+                
+                Spacer()
+                
+                HStack(spacing: 8) {
+                    Text("%\(Int(progressPercentage * 100))")
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                }
+            }
+        }
+        .padding(24)
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(
+                    LinearGradient(
+                        colors: [colorScheme.primary, colorScheme.accent],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .shadow(color: .black.opacity(0.2), radius: 15, x: 0, y: 8)
+        )
+        .padding(.horizontal, 20)
+        .padding(.top, 10)
+        .onAppear {
+            animateIcon = true
         }
     }
 }

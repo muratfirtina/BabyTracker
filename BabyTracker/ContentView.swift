@@ -5,13 +5,17 @@ struct ContentView: View {
     @EnvironmentObject var vaccinationDataManager: VaccinationDataManager
     @EnvironmentObject var growthDataManager: GrowthDataManager
     @State private var selectedTab = 0
-    @State private var animateTabChange = false
+    
+    // Gender-based color scheme
+    private var genderColorScheme: GenderColorScheme {
+        GenderColorScheme.forGender(babyDataManager.currentBaby.gender)
+    }
     
     var body: some View {
         ZStack {
             // Beautiful background gradient that changes based on selected tab
             getBackgroundGradient(for: selectedTab)
-                .ignoresSafeArea(.all, edges: .bottom)
+                .ignoresSafeArea()
                 .animation(.easeInOut(duration: 0.5), value: selectedTab)
             
             TabView(selection: $selectedTab) {
@@ -19,10 +23,11 @@ struct ContentView: View {
                 DashboardView()
                     .environmentObject(babyDataManager)
                     .tabItem {
-                        TabItemView(
+                        ModernTabItem(
                             icon: "house.fill",
                             title: "Ana Sayfa",
-                            isSelected: selectedTab == 0
+                            isSelected: selectedTab == 0,
+                            genderColorScheme: genderColorScheme
                         )
                     }
                     .tag(0)
@@ -31,23 +36,24 @@ struct ContentView: View {
                 DevelopmentView()
                     .environmentObject(babyDataManager)
                     .tabItem {
-                        TabItemView(
+                        ModernTabItem(
                             icon: "chart.line.uptrend.xyaxis",
                             title: "Gelişim",
-                            isSelected: selectedTab == 1
+                            isSelected: selectedTab == 1,
+                            genderColorScheme: genderColorScheme
                         )
                     }
                     .tag(1)
                 
-                // 💉 Vaccinations
-                VaccinationView()
+                // 🌙 Sleep Sounds
+                SleepSoundsView()
                     .environmentObject(babyDataManager)
-                    .environmentObject(vaccinationDataManager)
                     .tabItem {
-                        TabItemView(
-                            icon: "cross.fill",
-                            title: "Aşılar",
-                            isSelected: selectedTab == 2
+                        ModernTabItem(
+                            icon: "moon.stars.fill",
+                            title: "Uyku Sesleri",
+                            isSelected: selectedTab == 2,
+                            genderColorScheme: genderColorScheme
                         )
                     }
                     .tag(2)
@@ -56,140 +62,114 @@ struct ContentView: View {
                 ActivitiesView()
                     .environmentObject(babyDataManager)
                     .tabItem {
-                        TabItemView(
+                        ModernTabItem(
                             icon: "gamecontroller.fill",
                             title: "Aktiviteler",
-                            isSelected: selectedTab == 3
+                            isSelected: selectedTab == 3,
+                            genderColorScheme: genderColorScheme
                         )
                     }
                     .tag(3)
                 
-                // 🏥 Nearby Services
-                NearbyServicesView()
+                // ⋯ More
+                MoreView()
+                    .environmentObject(babyDataManager)
+                    .environmentObject(vaccinationDataManager)
                     .tabItem {
-                        TabItemView(
-                            icon: "location.fill",
-                            title: "Yakın Hizmetler",
-                            isSelected: selectedTab == 4
+                        ModernTabItem(
+                            icon: "ellipsis.circle.fill",
+                            title: "Daha Fazla",
+                            isSelected: selectedTab == 4,
+                            genderColorScheme: genderColorScheme
                         )
                     }
                     .tag(4)
-                
-                // 🌙 Sleep Sounds
-                SleepSoundsView()
-                    .tabItem {
-                        TabItemView(
-                            icon: "moon.fill",
-                            title: "Uyku",
-                            isSelected: selectedTab == 5
-                        )
-                    }
-                    .tag(5)
             }
-            .onChange(of: selectedTab) { newValue in
-                // Haptic feedback when tab changes
+            .tint(.babyPrimary)
+            .onChange(of: selectedTab) { _ in
                 HapticFeedback.selection()
-                
-                // Animate tab change
-                withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
-                    animateTabChange.toggle()
-                }
             }
         }
-        .preferredColorScheme(.light) // Force light mode for consistent colors
+        .preferredColorScheme(.light)
     }
     
     // Dynamic background based on selected tab
     private func getBackgroundGradient(for tab: Int) -> LinearGradient {
         switch tab {
-        case 0: // Dashboard
+        case 0:
             return LinearGradient(
-                colors: [Color.softGray, Color.white],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                colors: [Color.softGray.opacity(0.2), Color.white],
+                startPoint: .top,
+                endPoint: .bottom
             )
-        case 1: // Development
+        case 1:
             return LinearGradient(
-                colors: [Color.babySecondary.opacity(0.3), Color.white],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                colors: [Color.babySecondary.opacity(0.15), Color.white],
+                startPoint: .top,
+                endPoint: .bottom
             )
-        case 2: // Vaccinations
+        case 2:
             return LinearGradient(
-                colors: [Color.lightPeach.opacity(0.4), Color.white],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                colors: [Color.lightPeach.opacity(0.2), Color.white],
+                startPoint: .top,
+                endPoint: .bottom
             )
-        case 3: // Activities
+        case 3:
             return LinearGradient(
-                colors: [Color.buttercream.opacity(0.5), Color.white],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                colors: [Color.buttercream.opacity(0.25), Color.white],
+                startPoint: .top,
+                endPoint: .bottom
             )
-        case 4: // Nearby Services
+        case 4:
             return LinearGradient(
-                colors: [Color.softMint.opacity(0.4), Color.white],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        case 5: // Sleep
-            return LinearGradient(
-                colors: [Color.lavenderMist.opacity(0.4), Color.white],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                colors: [Color.lavenderMist.opacity(0.2), Color.white],
+                startPoint: .top,
+                endPoint: .bottom
             )
         default:
             return LinearGradient(
-                colors: [Color.softGray, Color.white],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                colors: [Color.softGray.opacity(0.2), Color.white],
+                startPoint: .top,
+                endPoint: .bottom
             )
         }
     }
 }
 
-// Enhanced Tab Item View
-struct TabItemView: View {
+// Modern iOS 17+ Style Tab Item with SF Symbols and Gender-based colors
+struct ModernTabItem: View {
     let icon: String
     let title: String
     let isSelected: Bool
+    var genderColorScheme: GenderColorScheme?
     
     var body: some View {
         VStack(spacing: 4) {
             Image(systemName: icon)
-                .font(.system(size: 20, weight: isSelected ? .semibold : .medium))
-                .foregroundColor(isSelected ? getTabColor() : .secondary)
-                .scaleEffect(isSelected ? 1.1 : 1.0)
-                .animation(.spring(response: 0.4, dampingFraction: 0.6), value: isSelected)
+                .font(.system(size: isSelected ? 24 : 22, weight: isSelected ? .semibold : .regular))
+                .symbolRenderingMode(.hierarchical)
+                .symbolEffect(.bounce, value: isSelected)
             
             Text(title)
-                .font(.caption2)
-                .fontWeight(isSelected ? .semibold : .medium)
-                .foregroundColor(isSelected ? getTabColor() : .secondary)
+                .font(.system(size: 10, weight: isSelected ? .semibold : .medium))
         }
-        .opacity(isSelected ? 1.0 : 0.7)
-    }
-    
-    private func getTabColor() -> Color {
-        switch title {
-        case "Ana Sayfa":
-            return .babyPrimary
-        case "Gelişim":
-            return .mintGreen
-        case "Aşılar":
-            return .roseGold
-        case "Aktiviteler":
-            return .coralPink
-        case "Yakın Hizmetler":
-            return .mintGreen
-        case "Uyku":
-            return .lilacPurple
-        default:
-            return .babyPrimary
-        }
+        .foregroundStyle(isSelected ? 
+            (genderColorScheme != nil ? 
+                LinearGradient(colors: [genderColorScheme!.primary, genderColorScheme!.accent], 
+                              startPoint: .topLeading, 
+                              endPoint: .bottomTrailing) :
+                LinearGradient(colors: [.babyPrimary, .mintGreen], 
+                              startPoint: .topLeading, 
+                              endPoint: .bottomTrailing)) :
+            LinearGradient(colors: [Color.gray.opacity(0.5), Color.gray.opacity(0.5)], 
+                          startPoint: .topLeading, 
+                          endPoint: .bottomTrailing))
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(BabyDataManager())
+        .environmentObject(VaccinationDataManager())
+        .environmentObject(GrowthDataManager())
 }

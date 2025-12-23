@@ -4,6 +4,7 @@ struct DevelopmentView: View {
     @EnvironmentObject var babyDataManager: BabyDataManager
     @State private var selectedTab = 0
     @State private var animateContent = false
+    @State private var showGrowthTracking = false
     
     var baby: Baby {
         babyDataManager.currentBaby
@@ -30,6 +31,7 @@ struct DevelopmentView: View {
                     // Modern Tab Selector
                     ModernTabSelector(
                         selectedTab: $selectedTab,
+                        showGrowthTracking: $showGrowthTracking,
                         colorScheme: genderColorScheme
                     )
                     .opacity(animateContent ? 1.0 : 0)
@@ -39,22 +41,17 @@ struct DevelopmentView: View {
                     .padding(.bottom, 20)
                     
                     // Content
-                    TabView(selection: $selectedTab) {
-                        // Gelişim Aşamaları
-                        ModernDevelopmentStagesView(baby: baby, colorScheme: genderColorScheme)
-                            .tag(0)
-                        
-                        // Büyüme Takibi
-                        GrowthTrackingView()
-                            .tag(1)
-                    }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                    .opacity(animateContent ? 1.0 : 0)
-                    .animation(.easeOut(duration: 0.8).delay(0.3), value: animateContent)
+                    ModernDevelopmentStagesView(baby: baby, colorScheme: genderColorScheme)
+                        .opacity(animateContent ? 1.0 : 0)
+                        .animation(.easeOut(duration: 0.8).delay(0.3), value: animateContent)
                 }
             }
             .navigationTitle("")
             .navigationBarHidden(true)
+            .sheet(isPresented: $showGrowthTracking) {
+                GrowthTrackingView()
+                    .environmentObject(babyDataManager)
+            }
         }
         .onAppear {
             animateContent = true
@@ -118,6 +115,7 @@ struct ModernDevelopmentHeader: View {
 // Modern Tab Selector
 struct ModernTabSelector: View {
     @Binding var selectedTab: Int
+    @Binding var showGrowthTracking: Bool
     let colorScheme: GenderColorScheme
     
     var body: some View {
@@ -137,13 +135,11 @@ struct ModernTabSelector: View {
             ModernTabButton(
                 title: "Büyüme Grafiği",
                 icon: "chart.xyaxis.line",
-                isSelected: selectedTab == 1,
+                isSelected: false,
                 color: colorScheme.accent
             ) {
                 HapticFeedback.selection()
-                withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-                    selectedTab = 1
-                }
+                showGrowthTracking = true
             }
         }
         .padding(8)

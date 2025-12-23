@@ -46,12 +46,6 @@ struct DashboardView: View {
                                 .animation(.easeOut(duration: 0.8).delay(0.3), value: animateCards)
                         }
                         
-                        // Modern Quick Actions Grid
-                        ModernQuickActionsCard(baby: baby)
-                            .opacity(animateCards ? 1.0 : 0)
-                            .offset(y: animateCards ? 0 : 50)
-                            .animation(.easeOut(duration: 0.8).delay(0.5), value: animateCards)
-                        
                         // Enhanced Today's Recommendations
                         ModernTodayRecommendationsCard(baby: baby)
                             .opacity(animateCards ? 1.0 : 0)
@@ -137,6 +131,7 @@ struct HeroBabyInfoCard: View {
                             Circle()
                                 .fill(Color.white.opacity(0.2))
                                 .background(.ultraThinMaterial)
+                                .clipShape(Circle())
                         )
                 }
             }
@@ -669,80 +664,7 @@ struct StatItem: View {
     }
 }
 
-// Modern Quick Actions Card with beautiful grid
-struct ModernQuickActionsCard: View {
-    let baby: Baby
-    
-    var quickActions: [QuickActionGrid.QuickAction] {
-        [
-            QuickActionGrid.QuickAction(
-                title: "Aşı Takvimi",
-                icon: "syringe",
-                color: .roseGold,
-                action: { /* Navigate to vaccination */ }
-            ),
-            QuickActionGrid.QuickAction(
-                title: "Aktiviteler",
-                icon: "gamecontroller.fill",
-                color: .coralPink,
-                action: { /* Navigate to activities */ }
-            ),
-            QuickActionGrid.QuickAction(
-                title: "Uyku Sesleri",
-                icon: "moon.stars.fill",
-                color: .lilacPurple,
-                action: { /* Navigate to sleep sounds */ }
-            ),
-            QuickActionGrid.QuickAction(
-                title: "Büyüme Takibi",
-                icon: "chart.line.uptrend.xyaxis",
-                color: .oceanBlue,
-                action: { /* Navigate to growth tracking */ }
-            )
-        ]
-    }
-    
-    var body: some View {
-        VStack(spacing: 20) {
-            // Header
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("⚡ Hızlı Erişim")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundColor(.charcoal)
-                    
-                    Text("En sık kullanılan özellikler")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                
-                Spacer()
-                
-                // More options button
-                Button(action: {}) {
-                    Image(systemName: "ellipsis")
-                        .font(.title3)
-                        .foregroundColor(.charcoal)
-                        .frame(width: 32, height: 32)
-                        .background(
-                            Circle()
-                                .fill(Color.coolGray.opacity(0.5))
-                        )
-                }
-            }
-            
-            // Quick Actions Grid
-            QuickActionGrid(actions: quickActions, columns: 2)
-        }
-        .padding(24)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.white)
-                .shadow(color: Color.charcoal.opacity(0.08), radius: 15, x: 0, y: 8)
-        )
-    }
-}
+
 
 // Enhanced Today's Recommendations Card
 struct ModernTodayRecommendationsCard: View {

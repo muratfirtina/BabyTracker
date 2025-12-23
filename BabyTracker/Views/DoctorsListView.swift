@@ -9,21 +9,47 @@ struct DoctorsListView: View {
     @State private var animateCards = false
     @State private var selectedSpecialization: String = "Tümü"
     @State private var showFilterSheet = false
+    @State private var showLocationWarning = false
     
+    // Uzmanlık alanları listesi - daha spesifik
     private var specializations: [String] {
-        ["Tümü"] + doctorService.availableSpecializations
+        var specs = ["Tümü", "Çocuk Sağlığı ve Hastalıkları"]
+        
+        // Alt uzmanlık alanları
+        let subSpecializations = [
+            "Çocuk Kardiyolojisi",
+            "Çocuk Göz",
+            "Çocuk Endokrin",
+            "Çocuk Nörolojisi",
+            "Çocuk Gastroenterolojisi",
+            "Çocuk Hematolojisi",
+            "Çocuk Cerrahisi"
+        ]
+        
+        specs.append(contentsOf: subSpecializations)
+        return specs
     }
     
     private var filteredDoctors: [Doctor] {
         if selectedSpecialization == "Tümü" {
             return doctorService.doctors
         } else {
-            return doctorService.doctors.filter { $0.specialization == selectedSpecialization }
+            return doctorService.doctors.filter { 
+                $0.specialization.localizedCaseInsensitiveContains(selectedSpecialization) ||
+                selectedSpecialization.localizedCaseInsensitiveContains($0.specialization)
+            }
         }
     }
     
     var body: some View {
         VStack(spacing: 0) {
+            // Konum Uyarısı
+            if !locationService.hasValidLocation && !doctorService.isLoading {
+                LocationWarningBanner {
+                    showLocationWarning = true
+                }
+            }
+            
             // Filter Section
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
@@ -34,6 +60,11 @@ struct DoctorsListView: View {
                         ) {
                             selectedSpecialization = specialization
                             HapticFeedback.selection()
+                            
+                            // Uzmanlık seçildiğinde arama yap
+                            if specialization != "Tümü" {
+                                searchBySpecialization(specialization)
+                            }
                         }
                     }
                 }
@@ -45,7 +76,7 @@ struct DoctorsListView: View {
             if doctorService.isLoading {
                 LoadingDoctorsView()
             } else if filteredDoctors.isEmpty {
-                EmptyDoctorsView(searchText: searchText)
+                EmptyDoctorsView(searchText: searchText, hasLocation: locationService.hasValidLocation)
             } else {
                 ScrollView {
                     LazyVStack(spacing: 16) {
@@ -60,6 +91,41 @@ struct DoctorsListView: View {
                                 .easeOut(duration: 0.6).delay(Double(index) * 0.1),
                                 value: animateCards
                             )
+                            .onAppear {
+                                // Infinite scroll trigger
+                                if doctor.id == doctorService.doctors.last?.id,
+                                   let location = locationService.currentLocation,
+                                   doctorService.hasMoreDoctors {
+                                    Task {
+                                        await doctorService.loadMoreDoctors(
+                                            latitude: location.coordinate.latitude,
+                                            longitude: location.coordinate.longitude
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Loading more indicator
+                        if doctorService.isLoadingMore {
+                            HStack {
+                                ProgressView()
+                                    .tint(.oceanBlue)
+                                Text("Daha fazla doktor yükle niyor...")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                        }
+                        
+                        // End of list indicator
+                        if !doctorService.hasMoreDoctors && !doctorService.doctors.isEmpty {
+                            Text("✓ Tüm doktorlar yüklendi")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .frame(maxWidth: .infinity)
+                                .padding()
                         }
                     }
                     .padding(.horizontal, 20)
@@ -69,16 +135,103 @@ struct DoctorsListView: View {
         }
         .onAppear {
             animateCards = true
+            // İlk açılışta otomatik yükleme yapma
+            // Sadece konum geldiğinde yükle
         }
         .refreshable {
-            if let location = locationService.location {
+            loadDoctorsIfLocationAvailable()
+        }
+        .alert("Konum Gerekli", isPresented: $showLocationWarning) {
+            Button("Konum İzni Ver") {
+                locationService.requestLocationPermission()
+            }
+            Button("İptal", role: .cancel) { }
+        } message: {
+            Text("Yakındaki doktorları görebilmek için konum izni verin veya manuel olarak şehir seçin.")
+        }
+    }
+    
+    // Konum varsa doktor yükle
+    private func loadDoctorsIfLocationAvailable() {
+        guard locationService.hasValidLocation else {
+            print("⚠️ Konum bilgisi yok, arama yapılmıyor")
+            return
+        }
+        
+        Task {
+            if let location = locationService.currentLocation {
                 await doctorService.fetchNearbyDoctors(
                     latitude: location.coordinate.latitude,
                     longitude: location.coordinate.longitude
                 )
-            } else {
-                await doctorService.loadAllDoctors()
             }
+        }
+    }
+    
+    // Uzmanlık alanına göre ara
+    private func searchBySpecialization(_ specialization: String) {
+        guard locationService.hasValidLocation else {
+            showLocationWarning = true
+            return
+        }
+        
+        Task {
+            var latitude: Double?
+            var longitude: Double?
+            
+            if let location = locationService.currentLocation {
+                latitude = location.coordinate.latitude
+                longitude = location.coordinate.longitude
+            }
+            
+            await doctorService.fetchDoctorsBySpecialization(
+                specialization,
+                latitude: latitude,
+                longitude: longitude
+            )
+        }
+    }
+}
+
+// Konum Uyarı Banner'ı
+struct LocationWarningBanner: View {
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 12) {
+                Image(systemName: "location.slash.fill")
+                    .font(.title3)
+                    .foregroundColor(.warningOrange)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Konum Bilgisi Yok")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.charcoal)
+                    
+                    Text("Yakındaki doktorları görmek için konum izni verin")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.warningOrange.opacity(0.1))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.warningOrange.opacity(0.3), lineWidth: 1)
+                    )
+            )
+            .padding(.horizontal, 20)
+            .padding(.bottom, 16)
         }
     }
 }
@@ -135,16 +288,47 @@ struct DoctorCard: View {
     @State private var isPressed = false
     @State private var showingActionSheet = false
     
+    // Hastane mi muayenehane mi?
+    private var facilityType: String {
+        let name = doctor.hospital.lowercased()
+        if name.contains("hastane") || name.contains("hospital") || name.contains("tıp merkezi") || name.contains("medical center") {
+            return "🏥 Hastane"
+        } else if name.contains("klinik") || name.contains("clinic") || name.contains("poliklinik") {
+            return "🏥 Klinik"
+        } else {
+            return "🏥 Muayenehane"
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             // Header
             HStack {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("\(doctor.title) \(doctor.name)")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundColor(.charcoal)
-                        .lineLimit(2)
+                    // Title ve Name - title boşsa veya name generic ise sadece name göster
+                    if doctor.title.isEmpty || doctor.name == "Çocuk Doktoru" {
+                        // Generic isim veya title yok
+                        if doctor.name == "Çocuk Doktoru" {
+                            // Hastane/Klinik kartı - hastane adını büyük göster
+                            Text(doctor.hospital)
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .foregroundColor(.charcoal)
+                                .lineLimit(2)
+                        } else {
+                            Text(doctor.name)
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .foregroundColor(.charcoal)
+                                .lineLimit(2)
+                        }
+                    } else {
+                        Text("\(doctor.title) \(doctor.name)")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.charcoal)
+                            .lineLimit(2)
+                    }
                     
                     Text(doctor.specialization)
                         .font(.subheadline)
@@ -190,18 +374,21 @@ struct DoctorCard: View {
                 }
             }
             
-            // Hospital and Address
+            // Hospital Name
             VStack(alignment: .leading, spacing: 8) {
-                HStack(spacing: 8) {
-                    Image(systemName: "building.2.fill")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    
-                    Text(doctor.hospital)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.charcoal)
-                        .lineLimit(2)
+                // Hastane adını sadece üstte gösterilmediyse göster
+                if doctor.name != "Çocuk Doktoru" {
+                    HStack(spacing: 8) {
+                        Image(systemName: "building.2.fill")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        
+                        Text(doctor.hospital)
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .foregroundColor(.charcoal)
+                            .lineLimit(2)
+                    }
                 }
                 
                 HStack(spacing: 8) {
@@ -412,22 +599,25 @@ struct LoadingDoctorsView: View {
 // Empty Doctors View
 struct EmptyDoctorsView: View {
     let searchText: String
+    let hasLocation: Bool
     
     var body: some View {
         VStack(spacing: 24) {
-            Image(systemName: "stethoscope")
+            Image(systemName: hasLocation ? "stethoscope" : "location.slash")
                 .font(.system(size: 60, weight: .medium))
                 .foregroundColor(.oceanBlue.opacity(0.6))
             
             VStack(spacing: 12) {
-                Text(searchText.isEmpty ? "Doktor Bulunamadı" : "Arama Sonucu Bulunamadı")
+                Text(hasLocation ? "Doktor Bulunamadı" : "Konum Bilgisi Gerekli")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.charcoal)
                 
-                Text(searchText.isEmpty ? 
-                     "Bu bölgede doktor bulunamadı. Lütfen farklı bir konum deneyin." :
-                     "'\(searchText)' için sonuç bulunamadı. Farklı arama terimi deneyin."
+                Text(hasLocation ?
+                     (searchText.isEmpty ? 
+                      "Bu bölgede doktor bulunamadı. Lütfen farklı bir konum deneyin." :
+                      "'\(searchText)' için sonuç bulunamadı. Farklı arama terimi deneyin.") :
+                     "Yakındaki doktorları görebilmek için konum izni verin veya manuel olarak şehir seçin."
                 )
                 .font(.subheadline)
                 .foregroundColor(.secondary)

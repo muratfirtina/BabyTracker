@@ -127,7 +127,7 @@ struct PharmaciesListView: View {
     }
     
     private func refreshPharmaciesAsync() async {
-        if let location = locationService.location {
+        if let location = locationService.currentLocation {
             await pharmacyService.fetchNearbyPharmacies(
                 latitude: location.coordinate.latitude,
                 longitude: location.coordinate.longitude

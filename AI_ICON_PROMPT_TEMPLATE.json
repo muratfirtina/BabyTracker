@@ -1,0 +1,35 @@
+{
+  "style": "modern iOS app icon style, soft 3D design with gentle curves, pastel color palette, smooth gradients, professional healthcare aesthetic, clean and minimalist, friendly and trustworthy appearance, perfect for App Store presentation",
+  "scene": "a {main_object} representing {feature_type}, placed centrally on a soft {surface_color} background with subtle depth, warm and welcoming atmosphere, gentle shadows creating professional depth",
+  "composition": {
+    "layout": "center-focused balanced composition with proper padding",
+    "camera_angle": "slight front-facing perspective with subtle depth",
+    "depth_of_field": "medium focus on main object, soft background blur",
+    "motion_feel": "calm, stable, gentle curves for approachability",
+    "aspect_ratio": "1:1"
+  },
+  "elements": {
+    "main_object": "{main_object}",
+    "secondary_object": "{optional_secondary_object}",
+    "object_style": "soft realistic 3D, rounded edges, minimalist pediatric design, gentle proportions",
+    "surface_detail": "smooth matte finish with subtle highlights, soft specular reflections, no harsh edges",
+    "shadow_type": "soft ambient occlusion shadow, gentle drop shadow for depth",
+    "lighting": "soft natural daylight with warm glow, gentle rim lighting, no harsh contrasts"
+  },
+  "colors": {
+    "primary_color": "{primary_color}",
+    "secondary_color": "{secondary_color}",
+    "accent_color": "{accent_color}",
+    "surface_color": "{surface_color}"
+  },
+  "theme": {
+    "feature_type": "{feature_type}",
+    "vibe": "{caring | professional | friendly | trustworthy | modern | gentle}"
+  },
+  "formatting": {
+    "background": "subtle gradient from {top_color} to {bottom_color}, soft radial glow behind main object, calming atmosphere",
+    "resolution": "1024x1024",
+    "corner_radius": "designed for iOS rounded corners, leave space for automatic masking",
+    "output": "no text, no logo, no borders, no UI elements, pure icon design"
+  }
+}

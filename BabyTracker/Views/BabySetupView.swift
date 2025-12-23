@@ -93,6 +93,7 @@ struct BabySetupView: View {
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                     .opacity(animateContent ? 1.0 : 0)
                     .animation(.easeOut(duration: 0.8).delay(0.3), value: animateContent)
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
                     
                     // Navigation Buttons
                     ModernNavigationButtons(
@@ -442,6 +443,7 @@ struct ModernNameInputStep: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 40)
         }
+        .scrollDismissesKeyboard(.interactively)
         .onAppear {
             animateCard = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
@@ -501,6 +503,7 @@ struct ModernGenderSelectionStep: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 40)
         }
+        .scrollDismissesKeyboard(.interactively)
         .onAppear {
             animateCard = true
         }
@@ -752,6 +755,7 @@ struct ModernDateSelectionStep: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 40)
         }
+        .scrollDismissesKeyboard(.interactively)
         .onAppear {
             animateCard = true
         }
@@ -876,6 +880,7 @@ struct ModernMeasurementsStep: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 40)
         }
+        .scrollDismissesKeyboard(.interactively)
         .onAppear {
             animateCard = true
         }
@@ -932,6 +937,24 @@ struct ModernMeasurementField: View {
                     .multilineTextAlignment(.trailing)
                     .onTapGesture {
                         onTap()
+                    }
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Button(".") {
+                                if !value.contains(".") {
+                                    value += "."
+                                }
+                            }
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            
+                            Spacer()
+                            
+                            Button("Tamam") {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            }
+                            .fontWeight(.semibold)
+                        }
                     }
                 
                 Text(unit)

@@ -312,6 +312,7 @@ struct ModernFeatureRow: View {
                     )
                 )
                 .background(.ultraThinMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(

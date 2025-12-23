@@ -1,0 +1,253 @@
+{
+  "app_icon_main": {
+    "style": "modern iOS app icon style, soft 3D design with gentle curves, pastel color palette, smooth gradients, professional healthcare aesthetic, clean and minimalist, friendly and trustworthy appearance, perfect for App Store presentation",
+    "scene": "a baby footprint with a small heart symbol representing baby health tracking, placed centrally on a soft cream background with subtle depth, warm and welcoming atmosphere, gentle shadows creating professional depth",
+    "composition": {
+      "layout": "center-focused balanced composition with proper padding",
+      "camera_angle": "slight front-facing perspective with subtle depth",
+      "depth_of_field": "medium focus on main object, soft background blur",
+      "motion_feel": "calm, stable, gentle curves for approachability",
+      "aspect_ratio": "1:1"
+    },
+    "elements": {
+      "main_object": "baby footprint with tiny heart",
+      "secondary_object": "soft glow around the footprint",
+      "object_style": "soft realistic 3D, rounded edges, minimalist pediatric design, gentle proportions",
+      "surface_detail": "smooth matte finish with subtle highlights, soft specular reflections, no harsh edges",
+      "shadow_type": "soft ambient occlusion shadow, gentle drop shadow for depth",
+      "lighting": "soft natural daylight with warm glow, gentle rim lighting, no harsh contrasts"
+    },
+    "colors": {
+      "primary_color": "soft pink #FFB6D9",
+      "secondary_color": "baby blue #89CFF0",
+      "accent_color": "light yellow #FFF8DC",
+      "surface_color": "cream #FFF8F0"
+    },
+    "theme": {
+      "feature_type": "baby health tracker dashboard",
+      "vibe": "caring, professional, friendly, trustworthy"
+    },
+    "formatting": {
+      "background": "subtle gradient from light peach #FFEBD9 to cream #FFF8F0, soft radial glow behind main object, calming atmosphere",
+      "resolution": "1024x1024",
+      "corner_radius": "designed for iOS rounded corners, leave space for automatic masking",
+      "output": "no text, no logo, no borders, no UI elements, pure icon design"
+    }
+  },
+
+  "growth_tracking": {
+    "style": "modern iOS app icon style, soft 3D design with gentle curves, pastel color palette, smooth gradients, professional healthcare aesthetic, clean and minimalist, friendly and trustworthy appearance, perfect for App Store presentation",
+    "scene": "a smooth upward growth chart line with a tiny baby silhouette at the peak representing growth tracking, placed centrally on a soft mint green background with subtle depth, warm and welcoming atmosphere, gentle shadows creating professional depth",
+    "composition": {
+      "layout": "center-focused balanced composition with proper padding",
+      "camera_angle": "slight front-facing perspective with subtle depth",
+      "depth_of_field": "medium focus on main object, soft background blur",
+      "motion_feel": "calm, stable, gentle curves for approachability",
+      "aspect_ratio": "1:1"
+    },
+    "elements": {
+      "main_object": "curved growth chart line with baby silhouette",
+      "secondary_object": "small measurement marks along the line",
+      "object_style": "soft realistic 3D, rounded edges, minimalist pediatric design, gentle proportions",
+      "surface_detail": "smooth matte finish with subtle highlights, soft specular reflections, no harsh edges",
+      "shadow_type": "soft ambient occlusion shadow, gentle drop shadow for depth",
+      "lighting": "soft natural daylight with warm glow, gentle rim lighting, no harsh contrasts"
+    },
+    "colors": {
+      "primary_color": "mint green #98D8C8",
+      "secondary_color": "soft teal #81C3D7",
+      "accent_color": "light coral #FFB3BA",
+      "surface_color": "light mint #E8F5F3"
+    },
+    "theme": {
+      "feature_type": "baby growth tracking",
+      "vibe": "professional, trustworthy, modern, caring"
+    },
+    "formatting": {
+      "background": "subtle gradient from light mint #E8F5F3 to white #FFFFFF, soft radial glow behind main object, calming atmosphere",
+      "resolution": "1024x1024",
+      "corner_radius": "designed for iOS rounded corners, leave space for automatic masking",
+      "output": "no text, no logo, no borders, no UI elements, pure icon design"
+    }
+  },
+
+  "vaccination": {
+    "style": "modern iOS app icon style, soft 3D design with gentle curves, pastel color palette, smooth gradients, professional healthcare aesthetic, clean and minimalist, friendly and trustworthy appearance, perfect for App Store presentation",
+    "scene": "a rounded medical shield with a friendly checkmark symbol representing vaccination safety, placed centrally on a soft lavender background with subtle depth, warm and welcoming atmosphere, gentle shadows creating professional depth",
+    "composition": {
+      "layout": "center-focused balanced composition with proper padding",
+      "camera_angle": "slight front-facing perspective with subtle depth",
+      "depth_of_field": "medium focus on main object, soft background blur",
+      "motion_feel": "calm, stable, gentle curves for approachability",
+      "aspect_ratio": "1:1"
+    },
+    "elements": {
+      "main_object": "rounded shield with checkmark",
+      "secondary_object": "small stars or sparkles around the shield",
+      "object_style": "soft realistic 3D, rounded edges, minimalist pediatric design, gentle proportions",
+      "surface_detail": "smooth matte finish with subtle highlights, soft specular reflections, no harsh edges",
+      "shadow_type": "soft ambient occlusion shadow, gentle drop shadow for depth",
+      "lighting": "soft natural daylight with warm glow, gentle rim lighting, no harsh contrasts"
+    },
+    "colors": {
+      "primary_color": "light blue #B4D7E8",
+      "secondary_color": "lavender #E6B8E8",
+      "accent_color": "soft green #C8E6C9",
+      "surface_color": "light lavender #F3E5F5"
+    },
+    "theme": {
+      "feature_type": "vaccination schedule",
+      "vibe": "professional, trustworthy, caring, friendly"
+    },
+    "formatting": {
+      "background": "subtle gradient from light lavender #F3E5F5 to pale blue #E3F2FD, soft radial glow behind main object, calming atmosphere",
+      "resolution": "1024x1024",
+      "corner_radius": "designed for iOS rounded corners, leave space for automatic masking",
+      "output": "no text, no logo, no borders, no UI elements, pure icon design"
+    }
+  },
+
+  "development": {
+    "style": "modern iOS app icon style, soft 3D design with gentle curves, pastel color palette, smooth gradients, professional healthcare aesthetic, clean and minimalist, friendly and trustworthy appearance, perfect for App Store presentation",
+    "scene": "three colorful baby blocks with ABC letters stacked playfully representing developmental milestones, placed centrally on a soft peach background with subtle depth, warm and welcoming atmosphere, gentle shadows creating professional depth",
+    "composition": {
+      "layout": "center-focused balanced composition with proper padding",
+      "camera_angle": "slight front-facing perspective with subtle depth",
+      "depth_of_field": "medium focus on main object, soft background blur",
+      "motion_feel": "calm, stable, gentle curves for approachability",
+      "aspect_ratio": "1:1"
+    },
+    "elements": {
+      "main_object": "three rounded baby blocks with ABC",
+      "secondary_object": "small stars indicating achievement",
+      "object_style": "soft realistic 3D, rounded edges, minimalist pediatric design, gentle proportions",
+      "surface_detail": "smooth matte finish with subtle highlights, soft specular reflections, no harsh edges",
+      "shadow_type": "soft ambient occlusion shadow, gentle drop shadow for depth",
+      "lighting": "soft natural daylight with warm glow, gentle rim lighting, no harsh contrasts"
+    },
+    "colors": {
+      "primary_color": "soft coral #FFB88C",
+      "secondary_color": "peach #FFDAB9",
+      "accent_color": "light yellow #FFF8DC",
+      "surface_color": "light peach #FFEBD9"
+    },
+    "theme": {
+      "feature_type": "developmental milestones",
+      "vibe": "friendly, modern, caring, gentle"
+    },
+    "formatting": {
+      "background": "subtle gradient from light peach #FFEBD9 to cream #FFF8F0, soft radial glow behind main object, calming atmosphere",
+      "resolution": "1024x1024",
+      "corner_radius": "designed for iOS rounded corners, leave space for automatic masking",
+      "output": "no text, no logo, no borders, no UI elements, pure icon design"
+    }
+  },
+
+  "nearby_services": {
+    "style": "modern iOS app icon style, soft 3D design with gentle curves, pastel color palette, smooth gradients, professional healthcare aesthetic, clean and minimalist, friendly and trustworthy appearance, perfect for App Store presentation",
+    "scene": "a rounded map location pin with a friendly medical cross symbol representing nearby pediatric services, placed centrally on a soft sky blue background with subtle depth, warm and welcoming atmosphere, gentle shadows creating professional depth",
+    "composition": {
+      "layout": "center-focused balanced composition with proper padding",
+      "camera_angle": "slight front-facing perspective with subtle depth",
+      "depth_of_field": "medium focus on main object, soft background blur",
+      "motion_feel": "calm, stable, gentle curves for approachability",
+      "aspect_ratio": "1:1"
+    },
+    "elements": {
+      "main_object": "rounded map pin with medical cross",
+      "secondary_object": "subtle circular radar waves around the pin",
+      "object_style": "soft realistic 3D, rounded edges, minimalist pediatric design, gentle proportions",
+      "surface_detail": "smooth matte finish with subtle highlights, soft specular reflections, no harsh edges",
+      "shadow_type": "soft ambient occlusion shadow, gentle drop shadow for depth",
+      "lighting": "soft natural daylight with warm glow, gentle rim lighting, no harsh contrasts"
+    },
+    "colors": {
+      "primary_color": "sky blue #87CEEB",
+      "secondary_color": "light turquoise #AFEEEE",
+      "accent_color": "soft white #F8F8FF",
+      "surface_color": "pale blue #E3F2FD"
+    },
+    "theme": {
+      "feature_type": "nearby pediatric services",
+      "vibe": "professional, trustworthy, modern, friendly"
+    },
+    "formatting": {
+      "background": "subtle gradient from pale blue #E3F2FD to light cyan #E0F7FA, soft radial glow behind main object, calming atmosphere",
+      "resolution": "1024x1024",
+      "corner_radius": "designed for iOS rounded corners, leave space for automatic masking",
+      "output": "no text, no logo, no borders, no UI elements, pure icon design"
+    }
+  },
+
+  "activities": {
+    "style": "modern iOS app icon style, soft 3D design with gentle curves, pastel color palette, smooth gradients, professional healthcare aesthetic, clean and minimalist, friendly and trustworthy appearance, perfect for App Store presentation",
+    "scene": "a cute pacifier with small twinkling stars around it representing baby activities tracking, placed centrally on a soft purple background with subtle depth, warm and welcoming atmosphere, gentle shadows creating professional depth",
+    "composition": {
+      "layout": "center-focused balanced composition with proper padding",
+      "camera_angle": "slight front-facing perspective with subtle depth",
+      "depth_of_field": "medium focus on main object, soft background blur",
+      "motion_feel": "calm, stable, gentle curves for approachability",
+      "aspect_ratio": "1:1"
+    },
+    "elements": {
+      "main_object": "rounded pacifier with stars",
+      "secondary_object": "small hearts and sparkles",
+      "object_style": "soft realistic 3D, rounded edges, minimalist pediatric design, gentle proportions",
+      "surface_detail": "smooth matte finish with subtle highlights, soft specular reflections, no harsh edges",
+      "shadow_type": "soft ambient occlusion shadow, gentle drop shadow for depth",
+      "lighting": "soft natural daylight with warm glow, gentle rim lighting, no harsh contrasts"
+    },
+    "colors": {
+      "primary_color": "soft purple #DDA0DD",
+      "secondary_color": "light pink #FFB6D9",
+      "accent_color": "cream #FFF8DC",
+      "surface_color": "light purple #F3E5F5"
+    },
+    "theme": {
+      "feature_type": "baby activities tracking",
+      "vibe": "caring, friendly, gentle, modern"
+    },
+    "formatting": {
+      "background": "subtle gradient from light purple #F3E5F5 to soft pink #FFE4E1, soft radial glow behind main object, calming atmosphere",
+      "resolution": "1024x1024",
+      "corner_radius": "designed for iOS rounded corners, leave space for automatic masking",
+      "output": "no text, no logo, no borders, no UI elements, pure icon design"
+    }
+  },
+
+  "sleep_sounds": {
+    "style": "modern iOS app icon style, soft 3D design with gentle curves, pastel color palette, smooth gradients, professional healthcare aesthetic, clean and minimalist, friendly and trustworthy appearance, perfect for App Store presentation",
+    "scene": "a gentle crescent moon with soft musical notes floating around representing sleep sounds, placed centrally on a soft indigo background with subtle depth, warm and welcoming atmosphere, gentle shadows creating professional depth",
+    "composition": {
+      "layout": "center-focused balanced composition with proper padding",
+      "camera_angle": "slight front-facing perspective with subtle depth",
+      "depth_of_field": "medium focus on main object, soft background blur",
+      "motion_feel": "calm, stable, gentle curves for approachability",
+      "aspect_ratio": "1:1"
+    },
+    "elements": {
+      "main_object": "crescent moon with musical notes",
+      "secondary_object": "small stars and clouds",
+      "object_style": "soft realistic 3D, rounded edges, minimalist pediatric design, gentle proportions",
+      "surface_detail": "smooth matte finish with subtle highlights, soft specular reflections, no harsh edges",
+      "shadow_type": "soft ambient occlusion shadow, gentle drop shadow for depth",
+      "lighting": "soft natural daylight with warm glow, gentle rim lighting, no harsh contrasts"
+    },
+    "colors": {
+      "primary_color": "soft indigo #9FA8DA",
+      "secondary_color": "lavender #C5CAE9",
+      "accent_color": "pale yellow #FFF9C4",
+      "surface_color": "light indigo #E8EAF6"
+    },
+    "theme": {
+      "feature_type": "sleep sounds and lullabies",
+      "vibe": "caring, gentle, calming, trustworthy"
+    },
+    "formatting": {
+      "background": "subtle gradient from light indigo #E8EAF6 to pale lavender #F3E5F5, soft radial glow behind main object, calming atmosphere",
+      "resolution": "1024x1024",
+      "corner_radius": "designed for iOS rounded corners, leave space for automatic masking",
+      "output": "no text, no logo, no borders, no UI elements, pure icon design"
+    }
+  }
+}

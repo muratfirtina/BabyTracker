@@ -491,6 +491,24 @@ struct ModernMeasurementInputField: View {
                     .foregroundColor(.charcoal)
                     .multilineTextAlignment(.trailing)
                     .focused($isFocused)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Button(".") {
+                                if !value.contains(".") {
+                                    value += "."
+                                }
+                            }
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            
+                            Spacer()
+                            
+                            Button("Tamam") {
+                                isFocused = false
+                            }
+                            .fontWeight(.semibold)
+                        }
+                    }
                 
                 Text(unit)
                     .font(.subheadline)
